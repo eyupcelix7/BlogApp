@@ -15,8 +15,13 @@ namespace BlogApp.Controllers
         {
             _userRepository = userRepository;
         }
+        [HttpGet]
         public IActionResult Login()
         {
+            if (User.Identity!.IsAuthenticated)
+            {
+                RedirectToAction("Index", "Posts");
+            }
             return View();
         }
         [HttpPost]
@@ -40,14 +45,12 @@ namespace BlogApp.Controllers
                     {
                         IsPersistent = true
                     };
-
                     await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
                     await HttpContext.SignInAsync(
                         CookieAuthenticationDefaults.AuthenticationScheme,
                         new ClaimsPrincipal(claimsIdentity),
                         authProperties
                     );
-
                     return RedirectToAction("Index", "Posts");
                 }
                 else
@@ -56,6 +59,12 @@ namespace BlogApp.Controllers
                 }
             }
             return View(model);
+        }
+        [HttpGet]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login");
         }
     }
 }
