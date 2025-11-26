@@ -4,7 +4,6 @@ namespace BlogApp.Models
 {
     public class PostsViewModel
     {
-        public List<Post> Posts { get; set; }
-        public List<Tag> Tags { get; set; }
+        public List<Post> Posts { get; set; } = new List<Post>();
     }
 }
