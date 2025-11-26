@@ -18,10 +18,10 @@ namespace BlogApp.Data.Concrete.EfCore
                 if (!context.Tags.Any())
                 {
                     context.Tags.AddRange(
-                        new Tag { Text = "web programlama" },
-                        new Tag { Text = "mobil programlama" },
-                        new Tag { Text = "masaüstü programlama" },
-                        new Tag { Text = "oyun programlama" }
+                        new Tag { Text = "web programlama", Url="web-programlama", Color=TagColors.success },
+                        new Tag { Text = "mobil programlama", Url = "mobil-programlama", Color = TagColors.danger },
+                        new Tag { Text = "masaüstü programlama", Url = "masaustu-programlama", Color = TagColors.warning },
+                        new Tag { Text = "oyun programlama", Url = "oyun-programlama", Color = TagColors.primary }
                     );
                     context.SaveChanges();
                 }
