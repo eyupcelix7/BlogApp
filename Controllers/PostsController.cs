@@ -20,6 +20,7 @@ namespace BlogApp.Controllers
         public async Task<IActionResult> Index(string tag)
         {
             IQueryable<Post> posts = _postRepository.Posts;
+            var claims = User.Claims;
             if(!tag.IsNullOrEmpty())
             {
                 posts = posts.Where(x => x.Tags.Any(t => t.Url == tag));
