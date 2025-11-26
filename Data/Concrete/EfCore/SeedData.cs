@@ -40,6 +40,7 @@ namespace BlogApp.Data.Concrete.EfCore
                             Title = ".Net Core",
                             Content = ".Net Core Dersleri İçeriği",
                             IsActive = true,
+                            Image = "aspnetcore.jpg",
                             PublishedOn = DateTime.Now,
                             Tags = context.Tags.Take(3).ToList(),
                             UserId = 1
@@ -49,6 +50,7 @@ namespace BlogApp.Data.Concrete.EfCore
                             Title = "Php Core",
                             Content = "Php Dersleri İçeriği",
                             IsActive = true,
+                            Image = "php.png",
                             PublishedOn = DateTime.Now,
                             Tags = context.Tags.Take(3).ToList(),
                             UserId = 1

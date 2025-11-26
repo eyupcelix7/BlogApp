@@ -16,6 +16,8 @@ var app = builder.Build();
 
 SeedData.TestVerileriniDoldur(app);
 
+app.UseStaticFiles();
+
 app.MapDefaultControllerRoute();
 
 app.Run();
