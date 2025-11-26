@@ -13,7 +13,28 @@
             <div class="content">
                 @Model.Content
             </div>
-
+        </div>
+        <div class="bg-white mt-3">
+            <div class="card border-0">
+                <div class="card-header pb-0">
+                    <h4 class="">@Model.Comments.Count() Adet Yorum</h4>
+                </div>
+                <div class="card-body">
+                    @foreach(var comment in Model.Comments)
+                    {
+                        <div class="my-4 d-flex">
+                            <img src="~/img/@comment.User.Image" class="avatar rounded-circle float-start me-3" alt="@comment.User.UserName" />
+                            <div>
+                                <div class="mb-2">
+                                    <h6>@comment.User.UserName</h6>
+                                    <span>@comment.PublishedOn</span>
+                                </div>
+                                <p>@comment.CommentText</p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
         </div>
     </div>
     <div class="col-lg-4">
