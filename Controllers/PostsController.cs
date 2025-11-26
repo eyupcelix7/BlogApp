@@ -42,6 +42,7 @@ namespace BlogApp.Controllers
                 .FirstOrDefaultAsync(p=> p.Url == url)
             );
         }
+        [HttpPost]
         public IActionResult AddComment(int PostId, string UserName,string Text,string Url)
         {
             Comment comment = new Comment
