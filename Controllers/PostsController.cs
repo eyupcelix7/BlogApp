@@ -40,5 +40,10 @@ namespace BlogApp.Controllers
                 .FirstOrDefaultAsync(p=> p.Url == url)
             );
         }
+        public IActionResult AddComment(int PostId, string UserName,string Text)
+        {
+            return View();
+            //return RedirectToAction();
+        }
     }
 }

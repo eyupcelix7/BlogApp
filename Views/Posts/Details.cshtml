@@ -33,6 +33,24 @@
                             </div>
                         </div>
                     }
+                    <hr class="my-4" />
+                    <div>
+                        <h4 class="mb-3">Yorum Ekle</h4>
+                        <form action="/posts/AddComment" method="POST">
+                            <input type="hidden" name="PostId" value="@Model.PostId" />
+                            <div class="mb-3">
+                                <label for="UserName" class="form-label">Kullanıcı Adı</label>
+                                <input type="text" name="UserName" id="UserName" class="form-control" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="Text" class="form-label">Yorum</label>
+                                <textarea name="Text" id="Text" class="form-control" rows="3"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <button type="submit" class="form-control">Kaydet</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
