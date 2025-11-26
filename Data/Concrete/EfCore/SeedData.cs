@@ -39,6 +39,7 @@ namespace BlogApp.Data.Concrete.EfCore
                         {
                             Title = ".Net Core",
                             Content = ".Net Core Dersleri İçeriği",
+                            Description = ".Net Core Dersleri Kısa Açıklama",
                             Url="net-core-dersleri",
                             IsActive = true,
                             Image = "aspnetcore.jpg",
@@ -65,6 +66,7 @@ namespace BlogApp.Data.Concrete.EfCore
                         {
                             Title = "Php Core",
                             Content = "Php Dersleri İçeriği",
+                            Description = "Php Dersleri Kısa Açıklama",
                             Url = "php-dersleri",
                             IsActive = true,
                             Image = "php.png",

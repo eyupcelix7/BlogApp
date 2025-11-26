@@ -15,6 +15,7 @@ namespace BlogApp.Controllers
         {
             _userRepository = userRepository;
         }
+
         [HttpGet]
         public IActionResult Login()
         {

@@ -17,6 +17,7 @@ namespace BlogApp.Controllers
             _postRepository = postRepository;
             _commentRepository = commentRepository;
         }
+        [HttpGet]
         public async Task<IActionResult> Index(string tag)
         {
             IQueryable<Post> posts = _postRepository.Posts;
@@ -32,6 +33,7 @@ namespace BlogApp.Controllers
                 }    
             );
         }
+        [HttpGet]
         public async Task<IActionResult> Details(string url)
         {
             return View(
@@ -53,13 +55,40 @@ namespace BlogApp.Controllers
                 PublishedOn = DateTime.Now,
                 User = new User
                 {
-                    UserName = UserName,
+                    UserName = UserName, 
                     Image = "eyupcelix7.jpg"
                 }
             };
             _commentRepository.CreateComment(comment);
             //return Redirect($"/posts/details/{Url}");
             return RedirectToRoute("post_details", new {url = Url});
+        }
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Create(PostCreateViewModel model)
+        {
+            if(ModelState.IsValid)
+            {
+                _postRepository.CreatePost(
+                    new Post
+                    {
+                        Title = model.Title,
+                        Content = model.Content,
+                        Description = model.Description,
+                        Url = model.Url,
+                        UserId = 1,
+                        PublishedOn= DateTime.Now,
+                        Image = "eyupcelix7.jpg",
+                        IsActive = true
+                    }
+                );
+                return RedirectToAction("Index");
+            }
+            return View(model);
         }
     }
 }

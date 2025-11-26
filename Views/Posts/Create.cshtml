@@ -1,0 +1,46 @@
+﻿@model PostCreateViewModel
+@section Styles{
+	<link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/47.2.0/ckeditor5.css" crossorigin>
+	<link rel="stylesheet" href="~/css/ck5editor.css">
+}
+<div class="row">
+	<div class="col-12">
+		<div class="bg-white p-4">
+		<h1>Yazı Oluştur</h1>
+		<form action="Create" method="POST">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="mb-3">
+				<label asp-for="Title" class="form-label"></label>
+				<input asp-for="Title" class="form-control" />
+				<span asp-validation-for="Title" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="Description" class="form-label"></label>
+				<input asp-for="Description" class="form-control" />
+				<span asp-validation-for="Description" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="Url" class="form-label"></label>
+				<input asp-for="Url" class="form-control" />
+				<span asp-validation-for="Url" class="text-danger"></span>
+			</div>
+			<div class="mb-3 editor-container editor-container_classic-editor editor-container_include-style" id="editor-container">
+				<label asp-for="Content" class="form-label"></label>
+				<div class="editor-container__editor">
+					<textarea asp-for="Content" class="form-control"></textarea>
+				</div>
+				<span asp-validation-for="Content" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<button type="submit" class="btn btn-primary">Oluştur</button>
+			</div>
+		</form>
+		</div>
+	</div>
+</div>
+@section Scripts{
+	<script src="https://cdn.ckeditor.com/ckeditor5/47.2.0/ckeditor5.umd.js"></script>
+	<script src="https://cdn.ckeditor.com/ckeditor5/47.2.0/translations/tr.umd.js"></script>
+	<script src="~/js/ck5editor.js"></script>
+
+}
