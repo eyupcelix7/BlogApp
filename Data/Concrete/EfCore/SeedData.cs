@@ -18,10 +18,10 @@ namespace BlogApp.Data.Concrete.EfCore
                 if (!context.Tags.Any())
                 {
                     context.Tags.AddRange(
-                        new Tag { Text = "Web Programlama" },
-                        new Tag { Text = "Mobil Programlama" },
-                        new Tag { Text = "Masaüstü Programlama" },
-                        new Tag { Text = "Siber Güvenlik" }
+                        new Tag { Text = "web programlama" },
+                        new Tag { Text = "mobil programlama" },
+                        new Tag { Text = "masaüstü programlama" },
+                        new Tag { Text = "oyun programlama" }
                     );
                     context.SaveChanges();
                 }
@@ -39,6 +39,7 @@ namespace BlogApp.Data.Concrete.EfCore
                         {
                             Title = ".Net Core",
                             Content = ".Net Core Dersleri İçeriği",
+                            Url="net-core-dersleri",
                             IsActive = true,
                             Image = "aspnetcore.jpg",
                             PublishedOn = DateTime.Now,
@@ -49,6 +50,7 @@ namespace BlogApp.Data.Concrete.EfCore
                         {
                             Title = "Php Core",
                             Content = "Php Dersleri İçeriği",
+                            Url = "php-dersleri",
                             IsActive = true,
                             Image = "php.png",
                             PublishedOn = DateTime.Now,
