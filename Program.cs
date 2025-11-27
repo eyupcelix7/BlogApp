@@ -16,7 +16,10 @@ builder.Services.AddScoped<IPostRepository, EfPostRepository>();
 builder.Services.AddScoped<ITagRepository, EfTagRepository>();
 builder.Services.AddScoped<ICommentRepository, EfCommentRepository>();
 builder.Services.AddScoped<IUserRepository, EfUserRepository>();
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+{
+    options.LoginPath = "/User/Login";
+});
 var app = builder.Build();
 
 app.UseRouting();

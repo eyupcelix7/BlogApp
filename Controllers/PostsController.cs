@@ -2,9 +2,12 @@
 using BlogApp.Data.Concrete.EfCore;
 using BlogApp.Entity;
 using BlogApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace BlogApp.Controllers
 {
@@ -63,6 +66,7 @@ namespace BlogApp.Controllers
             //return Redirect($"/posts/details/{Url}");
             return RedirectToRoute("post_details", new {url = Url});
         }
+        [Authorize]
         [HttpGet]
         public IActionResult Create()
         {
@@ -90,5 +94,19 @@ namespace BlogApp.Controllers
             }
             return View(model);
         }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> List()
+        {
+            string userName = User.FindFirstValue(ClaimTypes.Name) ?? "";
+            if(!User.Identity!.IsAuthenticated)
+            {
+                return RedirectToAction("Index");
+            }
+            IQueryable<Post> posts = _postRepository.Posts;
+            return View(await posts.ToListAsync());
+        }
+
     }
 }
