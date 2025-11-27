@@ -50,9 +50,7 @@ const {
 	FontColor,
 	FontFamily,
 	FontSize,
-	Highlight,
-	Markdown,
-	PasteFromMarkdownExperimental
+	Highlight
 } = window.CKEDITOR;
 
 const LICENSE_KEY =
@@ -132,11 +130,9 @@ const editorConfig = {
 		Link,
 		LinkImage,
 		List,
-		Markdown,
 		MediaEmbed,
 		Mention,
 		Paragraph,
-		PasteFromMarkdownExperimental,
 		PlainTableOutput,
 		Strikethrough,
 		Style,

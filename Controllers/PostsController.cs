@@ -23,7 +23,7 @@ namespace BlogApp.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(string tag)
         {
-            IQueryable<Post> posts = _postRepository.Posts;
+            IQueryable<Post> posts = _postRepository.Posts.Where(x=> x.IsActive == true);
             var claims = User.Claims;
             if(!tag.IsNullOrEmpty())
             {
@@ -99,7 +99,6 @@ namespace BlogApp.Controllers
         [HttpGet]
         public async Task<IActionResult> List()
         {
-            string userName = User.FindFirstValue(ClaimTypes.Name) ?? "";
             if(!User.Identity!.IsAuthenticated)
             {
                 return RedirectToAction("Index");
@@ -108,5 +107,52 @@ namespace BlogApp.Controllers
             return View(await posts.ToListAsync());
         }
 
+        [Authorize]
+        [HttpGet]
+        public IActionResult Edit(int? id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+            Post? post = _postRepository.Posts.FirstOrDefault(x=> x.PostId == id);
+            if(post == null)
+            {
+                return NotFound();
+            }
+            if (!User.Identity!.IsAuthenticated)
+            {
+                return RedirectToAction("Index");
+            }
+            return View(new PostEditViewModel
+            {
+                PostId = post.PostId,
+                IsActive = post.IsActive,
+                Content = post.Content!,
+                Description = post.Description,
+                Title = post.Title!,
+                Url = post.Url!
+            }); 
+        }
+        [Authorize]
+        [HttpPost]
+        public IActionResult Edit(PostEditViewModel model)
+        {
+            if(ModelState.IsValid)
+            {
+                var entityToUpdate = new Post
+                {
+                    PostId = model.PostId,
+                    Content = model.Content,
+                    IsActive = model.IsActive,
+                    Description = model.Description,
+                    Title = model.Title,
+                    Url = model.Url
+                };
+                _postRepository.UpdatePost(entityToUpdate);
+                return RedirectToAction("List");
+            }
+            return View();
+        }
     }
 }
