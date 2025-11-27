@@ -1,4 +1,7 @@
 ﻿@model Post
+@section Styles{
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+}
 <div class="row">
     <div class="col-lg-8">
         <div class="bg-white p-4">
@@ -10,7 +13,7 @@
                 }
             </div>
             <img src="~/img/@Model.Image" class="img-fluid rounded" alt="@Model.Title"/>
-            <div class="content">
+            <div class="content" id="content">
                 @Model.Content
             </div>
         </div>
@@ -61,3 +64,9 @@
         <vc:new-posts></vc:new-posts>
     </div>
 </div>
+@section Scripts{
+    <script>
+        var gelenVeri = "@Model.Content";
+        document.getElementById("content").innerHTML = marked.parse(gelenVeri);
+    </script>
+}
