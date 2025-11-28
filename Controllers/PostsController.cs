@@ -15,6 +15,7 @@ namespace BlogApp.Controllers
     {
         private IPostRepository _postRepository;
         private ICommentRepository _commentRepository;
+        Random randomInt = new Random();
         public PostsController(IPostRepository postRepository, ICommentRepository commentRepository)
         {
             _postRepository = postRepository;
@@ -73,10 +74,31 @@ namespace BlogApp.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(PostCreateViewModel model)
+        public async Task<IActionResult> Create(PostCreateViewModel model)
         {
             if(ModelState.IsValid)
             {
+                string? finishFileName = null;
+                if(model.Image != null)
+                {
+                    List<string> allowedExtensions = new List<string>(){".png",".jpg",".jpeg"};
+
+                    string imageName = model.Image.FileName.ToLower();
+                    string extension = Path.GetExtension(imageName);
+                    if (!allowedExtensions.Contains(extension))
+                    {
+                        ModelState.AddModelError("Image", "Lütfen resim yüklediğinizden emin olunuz.");
+                        ModelState.AddModelError("", "Yanlızca .png, .jpg, .jpeg uzantılı dosyalar kabul edilmektedir.");
+                        return View();
+                    }
+                    int nextRandom = randomInt.Next(1000000, 9999999);
+                    finishFileName = $"{nextRandom.ToString()}{extension}";
+                    string newPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/", finishFileName);
+                    using(FileStream stream = new FileStream(newPath, FileMode.Create))
+                    {
+                        await model.Image.CopyToAsync(stream);
+                    }
+                }
                 _postRepository.CreatePost(
                     new Post
                     {
@@ -85,8 +107,8 @@ namespace BlogApp.Controllers
                         Description = model.Description,
                         Url = model.Url,
                         UserId = 1,
-                        PublishedOn= DateTime.Now,
-                        Image = "eyupcelix7.jpg",
+                        PublishedOn = DateTime.Now,
+                        Image = finishFileName,
                         IsActive = true
                     }
                 );

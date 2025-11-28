@@ -7,7 +7,7 @@
 	<div class="col-12">
 		<div class="bg-white p-4">
 		<h1>Yazı Oluştur</h1>
-		<form action="Create" method="POST">
+		<form action="Create" method="POST" enctype="multipart/form-data">
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 			<div class="mb-3">
 				<label asp-for="Title" class="form-label"></label>
@@ -24,6 +24,12 @@
 				<input asp-for="Url" class="form-control" />
 				<span asp-validation-for="Url" class="text-danger"></span>
 			</div>
+				<div class="mb-3">
+					<label asp-for="Image" class="form-label"></label>
+					<input asp-for="Image" class="form-control" />
+					<span asp-validation-for="Image" class="text-danger"></span>
+				</div>
+
 			<div class="mb-3 editor-container editor-container_classic-editor editor-container_include-style" id="editor-container">
 				<label asp-for="Content" class="form-label"></label>
 				<div class="editor-container__editor">

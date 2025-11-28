@@ -15,5 +15,8 @@ namespace BlogApp.Models
         [Required(ErrorMessage = "Kısa Url alanını Lütfen Boş Bırakmayınız.")]
         [Display(Name = "Kısa Url")]
         public string Url { get; set; } = null!;
+        [DataType(DataType.Upload)]
+        [Display(Name = "Resim")]
+        public IFormFile? Image { get; set; }
     }
 }
