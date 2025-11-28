@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BlogApp.Entity;
+using System.ComponentModel.DataAnnotations;
 
 namespace BlogApp.Models
 {
@@ -20,6 +21,8 @@ namespace BlogApp.Models
         [Required(ErrorMessage = "Kısa Url alanını Lütfen Boş Bırakmayınız.")]
         [Display(Name = "Kısa Url")]
         public string Url { get; set; } = null!;
+        public List<Tag> Tags { get; set; } = new List<Tag>();
+        public int[] TagIds { get; set; } = new int[0];
 
     }
 }
