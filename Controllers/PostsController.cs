@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -15,17 +17,18 @@ namespace BlogApp.Controllers
     {
         private IPostRepository _postRepository;
         private ICommentRepository _commentRepository;
+        private ITagRepository _tagRepository;
         Random randomInt = new Random();
-        public PostsController(IPostRepository postRepository, ICommentRepository commentRepository)
+        public PostsController(IPostRepository postRepository, ICommentRepository commentRepository, ITagRepository tagRepository)
         {
             _postRepository = postRepository;
             _commentRepository = commentRepository;
+            _tagRepository = tagRepository;
         }
         [HttpGet]
         public async Task<IActionResult> Index(string tag)
         {
             IQueryable<Post> posts = _postRepository.Posts.Where(x=> x.IsActive == true);
-            var claims = User.Claims;
             if(!tag.IsNullOrEmpty())
             {
                 posts = posts.Where(x => x.Tags.Any(t => t.Url == tag));
@@ -43,6 +46,7 @@ namespace BlogApp.Controllers
             return View(
                 await _postRepository
                 .Posts
+                .Include(x=> x.User)
                 .Include(x => x.Tags)
                 .Include(x => x.Comments)
                 .ThenInclude(x=> x.User)
@@ -71,6 +75,7 @@ namespace BlogApp.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            ViewBag.Tags = _tagRepository.Tags.ToList();
             return View();
         }
         [HttpPost]
@@ -109,6 +114,7 @@ namespace BlogApp.Controllers
                         UserId = 1,
                         PublishedOn = DateTime.Now,
                         Image = finishFileName,
+                        Tags = model.Tags,
                         IsActive = true
                     }
                 );
@@ -137,7 +143,7 @@ namespace BlogApp.Controllers
             {
                 return NotFound();
             }
-            Post? post = _postRepository.Posts.FirstOrDefault(x=> x.PostId == id);
+            Post? post = _postRepository.Posts.Include(x=> x.Tags).FirstOrDefault(x=> x.PostId == id);
             if(post == null)
             {
                 return NotFound();
@@ -146,6 +152,8 @@ namespace BlogApp.Controllers
             {
                 return RedirectToAction("Index");
             }
+            ViewBag.Tags = _tagRepository.Tags.ToList();
+
             return View(new PostEditViewModel
             {
                 PostId = post.PostId,
@@ -153,7 +161,8 @@ namespace BlogApp.Controllers
                 Content = post.Content!,
                 Description = post.Description,
                 Title = post.Title!,
-                Url = post.Url!
+                Url = post.Url!,
+                Tags = post.Tags
             }); 
         }
         [Authorize]
@@ -169,7 +178,8 @@ namespace BlogApp.Controllers
                     IsActive = model.IsActive,
                     Description = model.Description,
                     Title = model.Title,
-                    Url = model.Url
+                    Url = model.Url,
+                    Tags = _tagRepository.Tags.Where(x => model.TagIds.Contains(x.TagId)).ToList()
                 };
                 _postRepository.UpdatePost(entityToUpdate);
                 return RedirectToAction("List");
