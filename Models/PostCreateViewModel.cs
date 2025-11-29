@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BlogApp.Entity;
+using System.ComponentModel.DataAnnotations;
 
 namespace BlogApp.Models
 {
@@ -18,5 +19,6 @@ namespace BlogApp.Models
         [DataType(DataType.Upload)]
         [Display(Name = "Resim")]
         public IFormFile? Image { get; set; }
+        public List<Tag> Tags { get; set; } = new List<Tag>();
     }
 }
