@@ -1,9 +1,9 @@
 
-# BlogApp
+# BlogApp 🚀
 
 Bu proje, yazı oluşturmak ve paylaşmak isteyen kişiler için yapılmış bir .net core web uygulamasıdır.
 
-## Özellikler
+## ✨ Özellikler
 
 - **Kolay Yazı Oluşturma:** Zengin metin editörü ile rahatça içerik oluşturun
 - **Esnek Düzenleme:** Yazılarınızı istediğiniz zaman güncelleyin ve geliştirin
@@ -35,3 +35,13 @@ Bu proje, yazı oluşturmak ve paylaşmak isteyen kişiler için yapılmış bir
 ## 🔄 Katkıda Bulunma
 
 Bu projeye katkıda bulunmak için yıldız vermeniz yeterlidir :)
+
+
+## 📷 Resimler
+
+![Anasayfa](https://i.hizliresim.com/aattq0k.png)
+
+![Yazı Detay](https://i.hizliresim.com/at4t0a4.png)
+
+![Admin Yazılar](https://i.hizliresim.com/cfypkl2.png)
+
