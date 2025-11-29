@@ -17,5 +17,14 @@ namespace BlogApp.Data.Concrete.EfCore
             _context.Comments.Add(comment);
             _context.SaveChanges();
         }
+
+        public void DeleteComment(Comment comment)
+        {
+            if(comment != null)
+            {
+                _context.Comments.Remove(comment);
+                _context.SaveChanges();
+            }
+        }
     }
 }

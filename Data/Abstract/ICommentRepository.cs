@@ -6,5 +6,6 @@ namespace BlogApp.Data.Abstract
     {
         IQueryable<Comment> Comments { get; }
         public void CreateComment(Comment comment);
+        public void DeleteComment(Comment comment);
     }
 }

@@ -64,7 +64,7 @@ namespace BlogApp.Controllers
                 User = new User
                 {
                     UserName = UserName, 
-                    Image = "eyupcelix7.jpg"
+                    Image = "user_avatar.png"
                 }
             };
             _commentRepository.CreateComment(comment);

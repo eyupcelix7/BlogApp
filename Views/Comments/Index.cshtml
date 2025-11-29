@@ -1,0 +1,45 @@
+﻿@model List<Comment>
+<div class="row">
+	<div class="col-12">
+		<h2>Yazı Listesi</h2>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th style="width:210px;">Gönderi Resim</th>
+					<th>Gönderi Durum</th>
+					<th>Gönderi Başlık</th>
+					<th>Yorum Yapan</th>
+					<th style="width:210px;">Yorum İçeriği</th>
+					<th>Gönderi Yorum Sayısı</th>
+					<th>Yorum Yayınlanma Tarihi</th>
+					<th style="width:210px;">İşlemler</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (Comment item in Model.OrderByDescending(x => x.CommentId))
+				{
+					<tr>
+						<td><img src="~/img/@item.Post.Image" class="img-fluid" alt="@item.Post.Title" /></td>
+						@if (item.Post.IsActive)
+						{
+							<td class='text-success'>Aktif</td>
+						}
+						else
+						{
+							<td class='text-danger'>Pasif</td>
+						}
+						<td>@item.Post.Title</td>
+						<td>@item.User.UserName</td>
+						<td>@item.CommentText</td>
+						<td>@item.Post.Comments.Count()</td>
+						<td>@item.PublishedOn</td>
+						<td>
+							<a href="/posts/details/@item.Post.Url" class="btn btn-sm btn-success">Gönderiye Git</a>
+							<a href="/comments/delete/@item.CommentId" class="btn btn-sm btn-success">Yorumu Sil</a>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+</div>
