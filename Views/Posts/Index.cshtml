@@ -3,7 +3,7 @@
     <div class="col-lg-8">
         <div class="bg-white p-4">
             <h1 class="h4 mb-4">Popüler Yazılar</h1>
-            @foreach(var post in Model.Posts){
+            @foreach (var post in Model.Posts.OrderByDescending(x => x.PostId).Take(10)){
                 <div class="card bg-transparent border-0 mb-3">
                     <div class="row">
                         <div class="col-4">
