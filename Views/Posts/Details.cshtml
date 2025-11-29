@@ -2,14 +2,23 @@
 <div class="row">
     <div class="col-lg-8">
         <div class="bg-white p-4">
-            <h1 class="h4 mb-4">@Model.Title</h1>
+            @if (User!.Identity!.IsAuthenticated)
+            {
+                <div class="float-end h5 mb-4">
+                    <a href="/Posts/Edit/@Model.PostId" class="mr-4">Bu Yazıyı Düzenle</a>
+                </div>
+            }
+            <img src="~/img/@Model.Image" class="img rounded mb-3" width="100%" height="350px" alt="@Model.Title" />
+
+            <h1 class="h4 mb-2">@Model.Title</h1>
+            <h2 class="h6 mb-2 text-secondary"><span class="text-primary">@Model.User.UserName</span> | @Model.PublishedOn</h2>
             <div class="tags">
                 @foreach(var tag in Model.Tags)
                 {
                     <a href="posts/tag/@tag.Url" class="badge bg-@tag.Color bg-opacity-10 text-@tag.Color mb-2 fw-bold">@tag.Text</a>
                 }
             </div>
-            <img src="~/img/@Model.Image" class="img-fluid rounded" alt="@Model.Title"/>
+            <hr>
             <div class="content" id="content">
                 @Html.Raw(Model.Content)
 
