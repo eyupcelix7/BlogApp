@@ -23,10 +23,13 @@
                         <a href="#" class="nav-link">@User.Identity.Name</a>
                     </li>
                     <li class="nav-item">
-                        <a asp-action="Create" asp-controller="Posts" class="nav-link text-primary">Yazı Oluştur</a>
+                        <a asp-action="List" asp-controller="Posts" class="nav-link text-primary">Yazılar</a>
                     </li>
                     <li class="nav-item">
-                        <a asp-action="List" asp-controller="Posts" class="nav-link text-primary">Yazılar</a>
+                        <a asp-action="List" asp-controller="Posts" class="nav-link text-primary">Yorumlar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/Tags" class="nav-link text-primary">Etiketler</a>
                     </li>
                     <li class="nav-item">
                         <a asp-action="Logout" asp-controller="User" class="nav-link text-danger">Çıkış Yap</a>

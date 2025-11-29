@@ -1,0 +1,77 @@
+﻿@model TagsViewModel
+<div class="row">
+	<div class="col-lg-8">
+		@foreach (var tag in Model.Tags)
+		{
+			<div class="card bg-transparent border-0 mb-3">
+				<div class="row">
+					<div class="col-8">
+						<h6>
+							<a href="/posts/details/" class="fw-bold text-@tag.Color">#@tag.Text</a>
+						</h6>
+						<div class="bg-@tag.Color" style="width:200px;height:10px;">&nbsp;</div>
+					</div>
+					<div class="col-4">
+						<div class="mt-3 text-primary">
+							<h6>
+								<a href="/Tags/Index/@tag.TagId">Düzenle</a>
+							</h6>
+							<h6>
+								<a href="/Tags/Delete/@tag.TagId">Sil</a>
+							</h6>
+						</div>
+					</div>
+				</div>
+			</div>
+			<hr />
+		}
+	</div>
+	<div class="col-4 bg-white rounded">
+		<form method="POST" action="@(Model.Edit ? "/Tags/Update" : "/Tags/Create")">
+			@{
+				if (Model.Edit)
+				{
+					<input type="hidden" name="TagId" value="@Model.TagId" />
+				}
+			}
+			<h2 class="mt-2">Etiket @(Model.Edit ? "Düzenle" : "Oluştur")</h2>
+			<div class="mb-3">
+				<label class="form-label" asp-for="Text"></label>
+				<input class="form-control" asp-for="Text" />
+				<span class="text-danger" asp-validation-for="Text"></span>
+			</div>
+			<div class="mb-3">
+				<label class="form-label" asp-for="Url"></label>
+				<input class="form-control" asp-for="Url" />
+				<span class="text-danger" asp-validation-for="Url"></span>
+			</div>
+
+			<div class="mb-3">
+				<label class="form-label" asp-for="Color"></label>
+				<select name="Color" id="Color" class="form-control">
+ 					<option value="@TagColors.primary">Seçiniz</option>
+					@{
+						Dictionary<TagColors, string> colorNames = new Dictionary<TagColors, string>() {
+							{TagColors.primary, "Mavi"},
+							{TagColors.danger, "Kırmızı"},
+							{TagColors.warning, "Sarı"},
+							{TagColors.success, "Yeşil"},
+							{TagColors.secondary, "Gri" }
+						};
+					}
+					@foreach(TagColors color in Enum.GetValues(typeof(TagColors)))
+					{
+						string? selected = Model.Color == color ? "selected" : null;
+
+						<option class="text-@color" value="@color" selected="@selected">@colorNames[color]</option>
+					}
+ 				</select>
+				<span class="text-danger" asp-validation-for="Color"></span>
+
+			</div>
+			<div class="mb-3">
+				<button type="submit" class="btn btn-primary">@(Model.Edit ? "Düzenle" : "Oluştur")</button>
+			</div>
+		</form>
+	</div>
+</div>
