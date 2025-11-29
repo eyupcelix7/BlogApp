@@ -1,5 +1,6 @@
 ﻿using BlogApp.Data.Abstract;
 using BlogApp.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlogApp.Data.Concrete.EfCore
 {
@@ -20,7 +21,7 @@ namespace BlogApp.Data.Concrete.EfCore
 
         public void UpdatePost(Post post)
         {
-            var entity = _context.Posts.FirstOrDefault(i => i.PostId == post.PostId);
+            var entity = _context.Posts.Include(x=> x.Tags).FirstOrDefault(i => i.PostId == post.PostId);
             if (entity != null)
             {
                 entity.Description = post.Description;
@@ -28,6 +29,7 @@ namespace BlogApp.Data.Concrete.EfCore
                 entity.Url = post.Url;
                 entity.Content = post.Content;
                 entity.IsActive = post.IsActive;
+                entity.Tags = post.Tags;
                 _context.SaveChanges();
             }
         }
