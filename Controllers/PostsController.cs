@@ -28,10 +28,10 @@ namespace BlogApp.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(string tag)
         {
-            IQueryable<Post> posts = _postRepository.Posts.Where(x=> x.IsActive == true);
+            IQueryable<Post> posts = _postRepository.Posts.Include(x=> x.Tags).Where(x=> x.IsActive == true);
             if(!tag.IsNullOrEmpty())
             {
-                posts = posts.Where(x => x.Tags.Any(t => t.Url == tag));
+                posts = posts.Include(x => x.Tags).Where(x => x.Tags.Any(t => t.Url == tag));
             }
             return View(
                 new PostsViewModel
@@ -164,6 +164,26 @@ namespace BlogApp.Controllers
                 Url = post.Url!,
                 Tags = post.Tags
             }); 
+        }
+        [Authorize]
+        [HttpGet]
+        public IActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            Post? post = _postRepository.Posts.FirstOrDefault(x => x.PostId == id);
+            if (post == null)
+            {
+                return NotFound();
+            }
+            if (!User.Identity!.IsAuthenticated)
+            {
+                return RedirectToAction("Index");
+            }
+            _postRepository.DeletePost(post);
+            return RedirectToAction("List");
         }
         [Authorize]
         [HttpPost]

@@ -14,7 +14,10 @@
                                 <a href="/posts/details/@post.Url" class="btn-link fw-bold">@post.Title</a>
                             </h5>
                             <p>@post.Description</p>
-                            <a href="#" class="badge bg-danger bg-opacity-10 text-danger mb-2 fw-bold">Web Geliştirme</a>
+                            @foreach(var tag in post.Tags)
+                            {
+                                <a href="/posts/tag/@tag.Url" class="badge bg-@tag.Color bg-opacity-10 text-@tag.Color mb-2 fw-bold">@tag.Text</a>
+                            }
                         </div>
                     </div> 
                 </div>

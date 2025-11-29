@@ -19,6 +19,16 @@ namespace BlogApp.Data.Concrete.EfCore
             _context.SaveChanges();
         }
 
+        public void DeletePost(Post post)
+        {
+            var entity = _context.Posts.FirstOrDefault(x=> x.PostId == post.PostId);
+            if(entity != null)
+            {
+                _context.Posts.Remove(entity);
+                _context.SaveChanges();
+            }
+        }
+
         public void UpdatePost(Post post)
         {
             var entity = _context.Posts.Include(x=> x.Tags).FirstOrDefault(i => i.PostId == post.PostId);
