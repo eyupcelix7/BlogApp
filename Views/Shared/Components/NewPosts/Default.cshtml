@@ -4,15 +4,18 @@
 		<h5 class="card-title mb-0">En Son Yazılan Gönderiler</h5><small class="text-secondary">(Son 10 Adet Kayıt)</small>
 	</div>
 	<div class="card-body">
-		@foreach(var post in Model)
+		@foreach (var post in Model)
 		{
-			<div class="mb-3">
-				<h6 class="mb-0">
-					<a href="/posts/details/@post.Url">
-						@post.Title
-					</a>
-				</h6>
-			</div>
+			if (post.IsActive)
+			{
+				<div class="mb-3">
+					<h6 class="mb-0">
+						<a href="/posts/details/@post.Url">
+							@post.Title
+						</a>
+					</h6>
+				</div>
+			}
 		}
 	</div>
 </div>
