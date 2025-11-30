@@ -30,7 +30,7 @@ Bu proje, yazı oluşturmak ve paylaşmak isteyen kişiler için yapılmış bir
 - **SQLITE**: Veritabanı
 - **Entity Framework Core**: ORM (Object-Relational Mapping)
 - **LINQ**: Veri Sorgulama
-- **Bootstrap 5**: CSS framework'ü
+- **Bootstrap 5**: CSS framework
 
 ## 🔄 Katkıda Bulunma
 
